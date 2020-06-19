@@ -11,7 +11,7 @@
         </div>
 
     @else
-      <div class="card shadow mb-4">
+      <div class="card shadow mb-4 w-95">
           <div class="card-header py-3 d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary">Trabajadores</h6>
             <a href="{{ route('crearT') }}" class="btn btn-success">Crear</a>
@@ -41,7 +41,7 @@
                     <th>Apellido</th>
                     <th>Edad</th>
                     <th>Identificación</th>
-                    <th class="text-center">Síntomas</th>
+                    <td class="text-center">Detalles</td>
                     <th class="text-center">Editar</th>
                     <th class="text-center">Eliminar</th>
                   </tr>
@@ -52,7 +52,7 @@
                   <th>Apellido</th>
                   <th>Edad</th>
                   <th>Identificación</th>
-                  <th class="text-center">Síntomas</th>
+                  <td class="text-center">Detalles</td>
                   <th class="text-center">Editar</th>
                   <th class="text-center">Eliminar</th>
                   </tr>
@@ -64,11 +64,9 @@
                       <td>{{$trabajador->lastname}}</td>
                       <td>{{$trabajador->age}}</td>
                       <td>{{$trabajador->cc}}</td>
+                      <td class="text-center"><a href="{{route('mostrarT', $trabajador->trabajador_id)}}" class="btn btn-primary">Detalles</a></td>
+                      <td class="text-center"><a href="{{ route('editarT', $trabajador->trabajador_id) }}" class="btn btn-warning">Editar</a></td>
                       <td class="text-center">
-                        <a href="" class="btn btn-info">Asociar</a>
-                      </td>
-                      <td style="text-align: center;"><a href="{{ route('editarT', $trabajador->trabajador_id) }}" class="btn btn-warning">Editar</a></td>
-                      <td style="text-align: center;">
                         <form action="{{ route('eliminarT',$trabajador->trabajador_id) }}" method="POST">
                           {{ method_field('DELETE') }}
                           {!! csrf_field() !!}
@@ -82,5 +80,6 @@
             </div>
           </div>
       </div>
+      @include('../modalsintomas')
     @endif
 @endsection

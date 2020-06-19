@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Trabajador;
 use App\Reporte;
+use App\Sintoma;
 
 class TrabajadorController extends Controller
 {
@@ -14,6 +15,15 @@ class TrabajadorController extends Controller
         
         //print_r(json_encode($trabajadores));
         return view('Trabajador.detalles', compact('trabajadores'));
+    }
+
+    public function mostrar($id){
+        $trabajador = Trabajador::findOrFail($id);
+        $trabajadorConSintomas = $data = Reporte::with('sintoma')
+                        ->where('trabajador_id', $id)
+                        ->get();
+        $sintomas = Sintoma::all();
+        return view('Trabajador.perfilTrabajador', compact('trabajador', 'trabajadorConSintomas', 'sintomas'));
     }
 
     public function store(){

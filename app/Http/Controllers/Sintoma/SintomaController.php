@@ -13,6 +13,11 @@ class SintomaController extends Controller
         return view('Sintoma.detalles', compact('sintomas'));
     }
 
+    public function getSintomas(){
+        $sintomas = Sintoma::all();
+        return response()->json($sintomas, 200);
+    }
+
     public function store(){
         return view('Sintoma.crear');
     }

@@ -11,7 +11,7 @@
         </div>
 
     @else
-      <div class="card shadow mb-4">
+      <div class="card shadow mb-4 w-95">
           <div class="card-header py-3 d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary">Sintomas</h6>
             <a href="{{ route('crearS') }}" class="btn btn-success">Crear</a>
@@ -39,7 +39,6 @@
                   <tr>
                     <th>Nombre</th>
                     <th class="text-center">Descripción</th>
-                    <th class="text-center">Asociar</th>
                     <th class="text-center">Editar</th>
                     <th class="text-center">Eliminar</th>
                   </tr>
@@ -48,7 +47,6 @@
                   <tr>
                   <th>Nombre</th>
                   <th class="text-center">Descripción</th>
-                  <th class="text-center">Asociar</th>
                   <th class="text-center">Editar</th>
                   <th class="text-center">Eliminar</th>
                   </tr>
@@ -62,7 +60,6 @@
                         @else
                             <td class="text-center"><a href="" class="btn btn-primary" data-toggle="modal" data-target="#openmodal" onclick="verDescripcion('{{$sintoma->name}}', '{{$sintoma->descripcion}}')">Descripción</a></td>
                         @endif
-                        <td class="text-center"><a href="" class="btn btn-info">Asociar</a></td>
                         <td class="text-center"><a href="{{ route('editarS', $sintoma->sintoma_id) }}" class="btn btn-warning">Editar</a></td>
                         <td class="text-center">
                         <form action="{{ route('eliminarS',$sintoma->sintoma_id) }}" method="POST">

@@ -29,6 +29,7 @@ Route::get('home', 'HomeController@index')->name('home');
 //CRUD TRABAJADORES
 Route::group(['namespace' => 'Trabajador'], function(){
     Route::get('trabajadores', 'TrabajadorController@index')->name('detallesT');
+    Route::get('trabajadores/perfil/{id}', 'TrabajadorController@mostrar')->name('mostrarT')->where('id','[0-9]+');
     Route::get('trabajadores/crear', 'TrabajadorController@store')->name('crearT');
     Route::post('trabajadores/nuevo', 'TrabajadorController@crear')->name('nuevoT');
     Route::get('trabajadores/editar/{id}', 'TrabajadorController@editar')->name('editarT')->where('id','[0-9]+');
@@ -44,6 +45,10 @@ Route::group(['namespace' => 'Sintoma'], function(){
     Route::get('sintomas/editar/{id}', 'SintomaController@editar')->name('editarS')->where('id','[0-9]+');
     Route::put('sintomas/actualizar/{id}', 'SintomaController@actualizar')->name('actualizarS')->where('id','[0-9]+');
     Route::delete('sintomas/{id}', 'SintomaController@eliminar')->name('eliminarS')->where('id','[0-9]+');
+});
 
+//Agregar sintomas a trabajadores
+Route::group(['namespace' => 'Reporte'], function(){
+    Route::post('agregar/{id}', 'ReporteController@agregarSintomas')->name('agregarS')->where('id','[0-9]+');
 });
 

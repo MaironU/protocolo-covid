@@ -1,0 +1,58 @@
+.w-30px {
+    min-width: 35px;
+}
+
+.w-65{
+    width: 65%;
+}
+
+.w-95{
+    width: 95%;
+}
+
+.w-45 {
+    width: 45% !important;
+}
+
+.f-size-30 {
+    font-size: 30px;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+@media (min-width: 255px) AND (max-width: 567px){
+    .size {
+        width: 90%;
+    }
+    .display-block {
+        display: block !important;
+    }
+    
+    .display-none {
+        display: none !important;
+    }
+    .size-themperature {
+        width: 55%;
+    }
+}
+
+@media (min-width: 568px){
+    .size {
+        width: 80%;
+    }
+    .size-themperature {
+        width: 40%;
+    }
+}
+
+@media (min-width: 768px){
+    .size {
+        width: 65%;
+    }
+    .size-themperature {
+        width: 25%;
+    }
+}
+

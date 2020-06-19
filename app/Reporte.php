@@ -14,11 +14,11 @@ class Reporte extends Model
 
     public function trabajador()
     {
-        return $this->hasMany('App\Trabajador', 'trabajador_id');
+        return $this->hasMany('App\Trabajador', 'trabajador_id', 'trabajador_id');
     }
 
     public function sintoma()
     {
-        return $this->hasMany('App\Sintoma', 'sintoma_id');
+        return $this->hasMany('App\Sintoma', 'sintoma_id', 'sintoma_id');
     }
 }

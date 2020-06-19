@@ -16,12 +16,12 @@ class CreateReportesTable extends Migration
         Schema::create('reportes', function (Blueprint $table) {
             $table->increments('reporteTrabajador_id')->unsigned();
             $table->unsignedInteger('trabajador_id');
-            $table->unsignedInteger('sintoma_id');
+            $table->unsignedInteger('sintoma_id')->nullable();
             $table->string('descripcion');
             $table->string('temperatura');
 
-            $table->foreign('trabajador_id')->references('trabajador_id')->on('trabajadors');
-            $table->foreign('sintoma_id')->references('sintoma_id')->on('sintomas');
+            $table->foreign('trabajador_id')->references('trabajador_id')->on('trabajadors')->onUpdate('cascade');
+            $table->foreign('sintoma_id')->references('sintoma_id')->on('sintomas')->onUpdate('cascade');
             $table->timestamps();
         });
     }
