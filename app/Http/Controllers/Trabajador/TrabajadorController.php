@@ -19,10 +19,24 @@ class TrabajadorController extends Controller
 
     public function mostrar($id){
         $trabajador = Trabajador::findOrFail($id);
-        $trabajadorConSintomas = $data = Reporte::with('sintoma')
-                        ->where('trabajador_id', $id)
-                        ->get();
         $sintomas = Sintoma::all();
+        $data = Reporte::select('trabajador_id', 'temperatura')
+                        ->where('trabajador_id', '=', $id)
+                        ->groupBy('trabajador_id', 'temperatura')
+                        ->get()->toArray();
+
+
+        $arraySintomas = Reporte::select('sintoma_id')
+                            ->groupBy('sintoma_id')
+                            ->where('trabajador_id', '=', $id)
+                            ->get();
+
+        if(!empty($data)){
+            $trabajadorConSintomas = array_merge($data[0], ["sintomas" => $arraySintomas]);
+        }else{
+            $trabajadorConSintomas = null;
+        }
+
         return view('Trabajador.perfilTrabajador', compact('trabajador', 'trabajadorConSintomas', 'sintomas'));
     }
 
@@ -103,5 +117,18 @@ class TrabajadorController extends Controller
         $trabajador = Trabajador::findOrFail($id);
         $trabajador->delete();
     	return redirect()->back()->with('eliminado', $trabajador->firstname.' '.$trabajador->lastname);
+    }
+
+    public function buscar($palabra){
+        $datos = Trabajador::select('trabajador_id','firstname', 'lastname')
+                            ->where('lastname', 'like', $palabra.'%')
+                            ->take(5)
+                            ->get();
+        
+        if(count($datos) == 0){
+            return response()->json([]);
+        }
+
+        return response()->json($datos);
     }
 }

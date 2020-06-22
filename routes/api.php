@@ -18,6 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['namespace' => 'Reporte'], function(){
-    Route::get('traSin/{id}', 'ReporteController@traSin');
+Route::group(['namespace' => 'Trabajador'], function(){
+    Route::get('buscar/{apellido}', 'TrabajadorController@buscar')->where('palabra','[A-Za-z]+');
 });

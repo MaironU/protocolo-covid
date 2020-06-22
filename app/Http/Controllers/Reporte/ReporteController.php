@@ -9,6 +9,11 @@ use App\Trabajador;
 
 class ReporteController extends Controller
 {
+
+    public function index(){
+        return view('Reporte.detalles');
+    }
+
     public function agregarTemperatura(Request $request){
         $trabajador = Reporte::where('trabajador_id', $request->id)->get();
         if(empty($trabajador)){
@@ -20,18 +25,13 @@ class ReporteController extends Controller
         return 'agregado';
     }
 
-    public function traSin($id){
-        $data = Reporte::select('temperatura')->with(array('sintoma'))->get();
-
-        $data = Reporte::with('sintoma')
-                        ->where('trabajador_id', '=', $id)
-                        ->get();
-
-
-        return response()->json($data);
-    }
-
     public function agregarSintomas(Request $request, $id){
+
+        $data = request()->validate([
+            'temperatura' => 'required'
+        ],[
+            'temperatura.required' => 'Ingresa una temperatura'  
+        ]);
 
         $trabajadores = Reporte::where('trabajador_id', $id);
 
@@ -70,6 +70,6 @@ class ReporteController extends Controller
             }
         }
 
-        return 'correcto';
+        return redirect()->back()->with('agregado', 'Sintomas actualizados');
     }
 }

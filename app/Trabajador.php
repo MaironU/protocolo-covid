@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Trabajador extends Model
 {
     protected $fillable = [
-        'email', 'password',
+        'name', 'password',
     ];
     protected $primaryKey = 'trabajador_id';
 

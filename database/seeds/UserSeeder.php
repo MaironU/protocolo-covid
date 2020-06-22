@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
             'name' => 'inspector urieles',
             'email' =>'inspector@gmail.com',
             'password' => Hash::make('123456'),
-            'empresa_id' => 1
+            'empresa_id' => 22
         ]);
     }
 }

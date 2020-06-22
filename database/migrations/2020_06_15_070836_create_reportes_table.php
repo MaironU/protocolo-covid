@@ -21,7 +21,7 @@ class CreateReportesTable extends Migration
             $table->string('temperatura');
 
             $table->foreign('trabajador_id')->references('trabajador_id')->on('trabajadors')->onUpdate('cascade');
-            $table->foreign('sintoma_id')->references('sintoma_id')->on('sintomas')->onUpdate('cascade');
+            $table->foreign('sintoma_id')->references('sintoma_id')->on('sintomas')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

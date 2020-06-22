@@ -27,7 +27,7 @@ Auth::routes();
 Route::get('home', 'HomeController@index')->name('home');
 
 //CRUD TRABAJADORES
-Route::group(['namespace' => 'Trabajador'], function(){
+Route::group(['namespace' => 'Trabajador', 'middleware' => 'auth'], function(){
     Route::get('trabajadores', 'TrabajadorController@index')->name('detallesT');
     Route::get('trabajadores/perfil/{id}', 'TrabajadorController@mostrar')->name('mostrarT')->where('id','[0-9]+');
     Route::get('trabajadores/crear', 'TrabajadorController@store')->name('crearT');
@@ -38,7 +38,7 @@ Route::group(['namespace' => 'Trabajador'], function(){
 });
 
 //CRUD SINTOMAS
-Route::group(['namespace' => 'Sintoma'], function(){
+Route::group(['namespace' => 'Sintoma', 'middleware' => 'auth'], function(){
     Route::get('sintomas', 'SintomaController@index')->name('detallesS');
     Route::get('sintomas/crear', 'SintomaController@store')->name('crearS');
     Route::post('sintomas/nuevo', 'SintomaController@crear')->name('nuevoS');
@@ -49,6 +49,7 @@ Route::group(['namespace' => 'Sintoma'], function(){
 
 //Agregar sintomas a trabajadores
 Route::group(['namespace' => 'Reporte'], function(){
+    Route::get('reportes', 'ReporteController@index')->name('detallesR');
     Route::post('agregar/{id}', 'ReporteController@agregarSintomas')->name('agregarS')->where('id','[0-9]+');
 });
 

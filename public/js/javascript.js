@@ -1,3 +1,5 @@
+var ruta = "http://192.168.43.148:8000/";
+
 function verDescripcion(name, descripcion){
     var title = document.getElementById('name');
     var description = document.getElementById('descripcion');
@@ -29,22 +31,72 @@ function agregarTemperatura(id){
     modal.dataset.id = id;
 
     title.innerHTML = 'Agregar temperatura';
-    description.innerHTML = '<div class="p-3 border"><input style="width: 80px" class="text-truncate border-0" type="number" placeholder="Temperatura" id="temperatura" name="temperatura" /><span class="px-2 ml-2 bg-primary text-light">° grados</span></div>';
+    description.innerHTML = '<div class="p-3 border"><input style="width: 130px" class="focus text-truncate border-0" type="number" placeholder="Temperatura" id="temperatura" name="temperatura" /><span class="px-2 ml-2 bg-primary text-light">° grados</span></div>';
 }
 
-function guardarTemperatura(){
+function guardarTemperatura(){    
     var temperatura = document.getElementById("temperatura").value  
     document.getElementById("add-temperatura").innerHTML = temperatura + "°";
     document.getElementById("add-temperatura-hidden").value = temperatura;
 }
 
-function obtenerSintomas(){
-    $(document).ready(function(){
-        $.get('http://192.168.1.15:8000/api/sintomas', function(r) {
-             console.log(r); 
-        });
-    });
-}
+$('#buscarApellidoCel').on("keyup", function(){
+
+    var palabra = this.value
+    
+    if(palabra != ""){    
+        $.ajax({
+            url: ruta +`api/buscar/${palabra}`,
+            success: function(response) {
+                console.log(response)
+                document.getElementById("contentCel").innerHTML = ""
+                if(response.length > 0){
+                    response.forEach(trabajador => {
+                        document.getElementById("contentCel").innerHTML += `
+                            <a href='${ruta}trabajadores/perfil/${trabajador.trabajador_id}' class='list-group-item border-0 p-0 py-3 ml-1 hover-a'>
+                                <i class='fa fa-user mr-3' aria-hidden='true'></i>${trabajador.firstname} ${trabajador.lastname}
+                            </a>
+                        `
+                    });
+                }
+            },
+            error: function(error) {
+                console.log(error)
+            }
+        })
+    }else{
+        document.getElementById("contentCel").innerHTML = ""
+    }
+});
+
+$('#buscarApellidoPc').on("keyup", function(){
+
+    var palabra = this.value
+    
+    if(palabra != ""){    
+        $.ajax({
+            url: ruta +`api/buscar/${palabra}`,
+            success: function(response) {
+                console.log(response)
+                document.getElementById("contentPc").innerHTML = ""
+                if(response.length > 0){
+                    response.forEach(trabajador => {
+                        document.getElementById("contentPc").innerHTML += `
+                            <a href="${ruta}trabajadores/perfil/${trabajador.trabajador_id}" class="list-group-item border-0 p-0 py-3 hover-a">
+                                <i class="fa fa-user mx-3" aria-hidden="true"></i>${trabajador.firstname} ${trabajador.lastname}
+                            </a>
+                        `
+                    });
+                }
+            },
+            error: function(error) {
+                console.log(error)
+            }
+        })
+    }else{
+        document.getElementById("contentPc").innerHTML = ""
+    }
+});
 
 
 /*var data = {
